@@ -22,7 +22,12 @@ def Funcion1_6(file:str,separador:str,palabra:str) -> int:
 
 if __name__ == '__main__':
     
+###################################################
+   
     palabra = "quijote"
     separador = " "
     resultado = Funcion1_6("lin_quijote.txt" , separador , palabra)
     print(f'La palabra {palabra} se repite {resultado}')
+    
+    
+################################################### pene
