@@ -44,14 +44,20 @@ def funcion4(n,k):
     else:
         print("n tiene que ser mayor que k")  
 #funcion5
-
+def funcion5(a,epsi,f,fd):
+    if f(a) >= epsi:
+        resultado = a - (f(a)/fd(a))
+    return resultado
+        
+    
+    
 
 
 if __name__ == '__main__':
     
         print ('################################################')
-        n=4
-        k= 2
+        n:int = 4
+        k:int = 2
         if n>k:
             
             print(f"El resultado del producto es: {funcion1(n,k)}")
@@ -61,17 +67,17 @@ if __name__ == '__main__':
 
         print ('################################################')
         
-        a1 = 2
-        r = 2
-        k2= 2
+        a1:int = 2
+        r:int = 2
+        k2:int= 2
         
         print( funcion2 (a1,r,k2))
         
         print ('################################################')
         
         
-        n1 = 4
-        k3 = 2
+        n1:int = 4
+        k3:int = 2
         print (funcion3(n1,k3))
         
         print ('################################################')
@@ -83,4 +89,11 @@ if __name__ == '__main__':
         print(funcion4(n2,k4))
         
         print ('################################################')
+        a:float = 3
+        epsilon:float= 0.001
+        f = lambda x: 2*x**2
+        fd = lambda x: 4*x
+        print(funcion5(a, epsilon, f, fd))
     
+       
+        
