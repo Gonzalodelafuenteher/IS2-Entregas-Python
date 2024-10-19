@@ -61,13 +61,13 @@ if __name__ == '__main__':
     file1 =  '../../'  + "Resources/lin_quijote.txt"
     separador = " "
     resultado = funcion1_6(file1 , separador , palabra)
-    print(f'La palabra {palabra} se repite {resultado} \n')
+    print(f'El número de veces que aparece la palabra {palabra} en el fichero {file1} es: {resultado} \n')
     
     
     print ('################################################')
     palabra2 = "quijote"
     file2 = '../../'  + "Resources/lin_quijote.txt"
-    resultado2 = funcion2_7(file2 , palabra)
+    resultado2 = funcion2_7(file2 , palabra2)
     print (f' Las líneas en las que aparece la palabra {palabra2} son: {resultado2} \n')
     
     
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     file5 = '../../'  + "Resources/vacio.csv"
     resultado4 = longitud_promedio_lineas(file4)
     
-    #resultado5 = longitud_promedio_lineas(file5)
+    resultado5 = longitud_promedio_lineas(file5)
     print(f'La longitud promedio de las líneas del fichero {file4} es: {resultado4}')
-    #print(f'La longitud promedio de las líneas del fichero {file5} es: {resultado5}')
+    print(f'La longitud promedio de las líneas del fichero {file5} es: {resultado5}')
 
