@@ -48,6 +48,8 @@ def longitud_promedio_lineas(file_path: str) -> float:
         for linea in f:
             longitud_lineas = longitud_lineas +len(linea.split(","))
             longitud_total = longitud_total + 1
+        if longitud_total == 0:
+            return print("none")
     return longitud_lineas/longitud_total  
     
     
@@ -56,7 +58,7 @@ def longitud_promedio_lineas(file_path: str) -> float:
         
 if __name__ == '__main__': 
     print ('################################################')
-   
+    print("TEST DE LA FUNCION 6: ")
     palabra = "quijote"
     file1 =  '../../'  + "Resources/lin_quijote.txt"
     separador = " "
@@ -65,6 +67,7 @@ if __name__ == '__main__':
     
     
     print ('################################################')
+    print("TEST DE LA FUNCION 7: ")
     palabra2 = "quijote"
     file2 = '../../'  + "Resources/lin_quijote.txt"
     resultado2 = funcion2_7(file2 , palabra2)
@@ -72,18 +75,20 @@ if __name__ == '__main__':
     
     
     print ('################################################')
+    print("TEST DE LA FUNCION 8: ")
 
     file3 = '../../'  + "Resources/archivo_palabras.txt"
     resultado3 = funcion3_8(file3)
     print (f'Las palabras únicas en el fichero {file3} son: {resultado3} \n')
 
     print ('################################################')
-    
+    print("TEST DE LA FUNCION 9: ")
     file4 = '../../'  + "Resources/palabras_random.csv"
     file5 = '../../'  + "Resources/vacio.csv"
     resultado4 = longitud_promedio_lineas(file4)
-    
     resultado5 = longitud_promedio_lineas(file5)
-    print(f'La longitud promedio de las líneas del fichero {file4} es: {resultado4}')
+    print(f'La longitud promedio de las líneas del fichero {file4} es: {resultado4} \n')
+    
+    print("TEST DE LA FUNCION 9: ")
     print(f'La longitud promedio de las líneas del fichero {file5} es: {resultado5}')
 
