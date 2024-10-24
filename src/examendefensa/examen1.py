@@ -4,7 +4,7 @@ Created on 24 oct 2024
 @author: carlo
 '''
 import math
-from math import prod,comb
+from math import comb
 
 
 def P2(n: int, k: int, i: int = 1) -> int:
