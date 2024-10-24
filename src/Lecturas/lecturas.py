@@ -36,8 +36,7 @@ def funcion3_8 (file:str)-> set[str]:
         for linea in f:
             for p in linea.split(" "):
                 p = p.strip()
-                if len(p) > 0:
-                    r.add(p)
+                r.add(p)
     return r  
 
 
@@ -56,4 +55,4 @@ def longitud_promedio_lineas(file_path: str) -> float:
       
       
         
-
+ 
