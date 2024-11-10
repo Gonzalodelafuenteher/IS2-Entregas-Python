@@ -96,7 +96,7 @@ def main():
     while not cola.is_empty():
         atencion.append(cola.remove())
         assert atencion == ['Paciente C','Paciente B','Paciente A'],"El orden de atención no es correcto."
-        print("Pruebas superadas exitosamente.")
+        print("Pruebas superadas exitosamentee.")
 
 if __name__ == '__main__':
     main()
