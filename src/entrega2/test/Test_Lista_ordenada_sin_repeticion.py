@@ -18,10 +18,10 @@ if __name__ == '__main__':
     
     print(f"Resultado de la lista ordenada sin repetición: {lista}")
     
-    eliminado = lista.remove(47)
+    eliminado:list[int] = lista.remove(47)
     print(f"El elemento eliminado al utilizar remove(): {eliminado}")
     
-    elementos_eliminados = lista.remove_all()
+    elementos_eliminados:list[int]= lista.remove_all()
     print(f"Elementos eliminados utilizando remove_all: {elementos_eliminados}")
     
     print(f"Lista después de añadirle el 0: {lista}")

@@ -8,7 +8,7 @@ from entrega2.tipos.Lista_ordenada import Lista_ordenada
 if __name__ == '__main__':
     print("TEST DE LISTA ORDENADA:")
     # Creación de una lista con criterio de orden
-    lista = Lista_ordenada(lambda x: x)
+    lista:Lista_ordenada = Lista_ordenada(lambda x: x)
     print("Creación de una lista con criterio de orden lambda x: x")
 
     # Se añade en este orden: 3, 1, 2
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     print(f"Resultado de la lista: {lista}")
 
     # El elemento eliminado al utilizar remove()
-    removed_element = lista.remove()
+    removed_element:list[int] = lista.remove()
     print(f"El elemento eliminado al utilizar remove(): {removed_element}")
 
     # Elementos eliminados utilizando remove_all
