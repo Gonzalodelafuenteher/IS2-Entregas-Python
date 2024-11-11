@@ -26,4 +26,4 @@ class Cola(Agregado_lineal[E]):
         """
     def __str__(self)->str:
        
-        return "Cola(" + ", ".join(str(e) for e in self._elements) + ")"  
+        return "Cola([" + ", ".join(str(e) for e in self._elements) + "])"  
