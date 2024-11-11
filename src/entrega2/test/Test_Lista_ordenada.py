@@ -24,7 +24,7 @@ if __name__ == '__main__':
     print(f"El elemento eliminado al utilizar remove(): {removed_element}")
 
     # Elementos eliminados utilizando remove_all
-    removed_elements = lista.remove_all()
+    removed_elements:list[int] = lista.remove_all()
     print(f"Elementos eliminados utilizando remove_all: {removed_elements}")
     
     # Comprobando si se añaden los números en la posición correcta

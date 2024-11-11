@@ -16,7 +16,7 @@ class Lista_ordenada(Agregado_lineal[E], Generic[E, R]):
     def __init__(self, order: Callable[[E], R]):
         # Inicializa la colección con una función de ordenación
         super().__init__()
-        self._order = order
+        self._order:Callable[[E], R] = order
 
     @classmethod
     def of(cls, order: Callable[[E], R]) -> 'Lista_ordenada[E, R]':
@@ -43,14 +43,26 @@ class Lista_ordenada(Agregado_lineal[E], Generic[E, R]):
         return len(self._elements)  
          
     # Aqui lo que hacemo es unicamente el proceso de ordenar el numero 
-
+    def remove(self) -> E:
+        if self.is_empty():
+            raise IndexError("No se puede eliminar de un agregado vacío.")
+        return self._elements.pop(0)
+    
+    def remove_all(self) -> list[E]:
+        """
+        Elimina todos los elementos de la colección.
+        :return: Lista eliminada
+        """
+        removed_elements = self._elements.copy()
+        self._elements.clear()
+        return removed_elements
 
         
     def add(self, e: E) -> None:
         if len(self._elements) == 0:  # Si la lista está vacía, simplemente agrega el elemento
             self._elements.append(e)
         else:
-            posicion = self.__index_order(e)  # Llama a __index_order solo si la lista no está vacía
+            posicion:int = self.__index_order(e)  # Llama a __index_order solo si la lista no está vacía
             self._elements.insert(posicion, e)
         
         
