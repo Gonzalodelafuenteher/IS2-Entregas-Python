@@ -49,10 +49,9 @@ def main():
     
     print("Creación de una lista con criterio de orden lambda x: -x")
     lista = Lista_ordenada_sin_repeticion(lambda x: -x)
-    elementos_a_agregar = [23, 47, 47, 1, 2, -3, 4, 5]
+    elementos_a_agregar = [23, 47, 47, 1, 2, 2, -3, 4, 5]
     
-    for elem in elementos_a_agregar:
-        lista.add(elem)
+    lista.add_all(elementos_a_agregar)
         
     
     print(f"Resultado de la lista ordenada sin repetición: {lista}")
@@ -95,8 +94,8 @@ def main():
     atencion = []
     while not cola.is_empty():
         atencion.append(cola.remove())
-        assert atencion == ['Paciente C','Paciente B','Paciente A'],"El orden de atención no es correcto."
-        print("Pruebas superadas exitosamentee.")
+    assert atencion == ['Paciente C','Paciente B','Paciente A'],"El orden de atención no es correcto."
+    print("Pruebas superadas exitosamentee.")
 
 if __name__ == '__main__':
     main()

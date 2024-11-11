@@ -35,21 +35,21 @@ class Lista_ordenada_sin_repeticion(Lista_ordenada[E, R], Generic[E, R]):
             for i in range(len(self._elements)):  
                 if e == self._elements[i]:  
                     cont += 1  
-                    if cont < 1:
-                        posicion = self.__index_order(e)
-                        self._elements.insert(posicion, e)
+            if cont < 1:
+                    posicion = self.__index_order(e)
+                    self._elements.insert(posicion, e)
             
             
     def __index_order(self, e: E) -> int:
         assert len(self._elements) > 0, "La lista está vacía."
-        if e < self._elements[0]: 
+        if self._order(e) < self._order(self._elements[0]): 
             return 0
     
-        if e > self._elements[len(self._elements) - 1]:  
+        if self._order(e) > self._order(self._elements[len(self._elements) - 1]):  
             return len(self._elements)
     
         for i in range(len(self._elements)):  
-            if e < self._elements[i]: 
+            if self._order(e) < self._order(self._elements[i]): 
                 return i
     
         return len(self._elements)  
