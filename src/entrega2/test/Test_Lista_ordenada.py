@@ -14,8 +14,9 @@ if __name__ == '__main__':
     # Se añade en este orden: 3, 1, 2
     lista.add(3)
     lista.add(1)
+    lista.add(4)
     lista.add(2)
-    print(f"Se añade en este orden: 3, 1, 2")
+    print(f"Se añade en este orden: 3, 1, 4 , 2")
     print(f"Resultado de la lista: {lista}")
 
     # El elemento eliminado al utilizar remove()

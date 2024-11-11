@@ -22,13 +22,18 @@ class Pila(Agregado_lineal[E]):
     IMPORTANTE. Como la estructura subyacente es una lista, la parte superior de la pila es el primer 
     elemento de la lista.
     """
-    
+ 
+  
     def add(self, element: E) -> None:
         """Añade un nuevo elemento a la parte superior de la pila (al principio)."""
-        self.elements.insert(0, element)  # Inserta el elemento al principio de la lista
+        self._elements.insert(0, element)  # Inserta el elemento al principio de la lista
 
 
     @classmethod
     def of(cls) -> 'Pila[E]':
         """Método de fábrica que crea e inicializa una nueva instancia de la clase."""
         return cls()
+    
+    def __str__(self)->str:
+       
+        return "Pila(" + ", ".join(str(e) for e in self._elements) + ")"
