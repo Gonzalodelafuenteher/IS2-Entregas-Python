@@ -107,7 +107,6 @@ class ColaConLimite(Agregado_lineal[E]):
 if __name__ == '__main__':
     
     
-    print("=== Ejemplo de uso con ColaConLimite ===")
     cola:ColaConLimite= ColaConLimite.of(3)
     cola.add("Tarea 1")
     cola.add("Tarea 2")
@@ -133,10 +132,12 @@ if __name__ == '__main__':
     cola2.add(15)
     cola2.add(25)
     
-    encontrado_10 = cola2.find(lambda x: x == 10)  
-    encontrado_25 = cola2.find(lambda x: x == 25) 
-    print(f"Elemento encontrado (10): {encontrado_10}")  
-    print(f"Elemento encontrado (25): {encontrado_25}") 
+    z = 9
+    r = 25
+    encontrado_z = cola2.find(lambda x: x == z)  
+    encontrado_r = cola2.find(lambda x: x == r) 
+    print(f"Elemento encontrado ({z}): {encontrado_z}")  
+    print(f"Elemento encontrado ({r}): {encontrado_r}") 
     
     x = 6
     y = 25
@@ -145,9 +146,9 @@ if __name__ == '__main__':
     print(f"¿Contiene {x}? {contiene_x}")  
     print(f"¿Contiene {y}? {contiene_y}")  
 
-
-    mayores_a_10: List[int] = cola2.filter(lambda x: x > 10)  
-    print(f"Elementos mayores a 10: {mayores_a_10}")
+    w = 5
+    mayores_a_w: List[int] = cola2.filter(lambda x: x > w)  
+    print(f"Elementos mayores a {w}: {mayores_a_w}")
 
    
     
