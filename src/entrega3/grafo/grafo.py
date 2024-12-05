@@ -30,7 +30,7 @@ class Grafo(Generic[V, E]):
         :return: Nuevo grafo.
         """
         return Grafo(es_dirigido)
-        pass
+    
     
     def add_vertex(self, vertice: V) -> None:
         """
@@ -38,7 +38,8 @@ class Grafo(Generic[V, E]):
         
         :param vertice: Vértice a añadir.
         """
-        pass
+        if vertice not in self.adyacencias:
+            self.adyacencias[vertice] = {}
 
     def add_edge(self, origen: V, destino: V, arista: E) -> None:
         """
@@ -49,7 +50,13 @@ class Grafo(Generic[V, E]):
         :param destino: Vértice de destino.
         :param arista: Arista a añadir.
         """
-        pass
+        if self.es_dirigido == True:
+            self.adyacencias[origen] = {destino:arista}
+        else:
+            self.adyacencias[origen] = {destino:arista}
+            self.adyacencias[destino] = {destino:arista}
+            
+            
 
     def successors(self, vertice: V) -> Set[V]:
         """
