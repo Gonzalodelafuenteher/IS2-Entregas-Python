@@ -68,7 +68,7 @@ class Grafo(Generic[V, E]):
         try:
             
             assert vertice in self.adyacencias
-            return self.adyacencias[vertice]
+            return set(self.adyacencias[vertice])
         
         except AssertionError:
             print(f"El vertice no esta en el grafo")
@@ -82,7 +82,12 @@ class Grafo(Generic[V, E]):
         :param vertice: Vértice del que se buscan los predecesores.
         :return: Conjunto de predecesores.
         """
-        pass
+        predecesores = set()
+        for origen, destinos in self.adyacencias.items():
+                if vertice in destinos:
+                    predecesores.add(origen)
+        return predecesores
+        
 
     def edge_weight(self, origen: V, destino: V) -> Optional[E]:
         """
@@ -95,7 +100,7 @@ class Grafo(Generic[V, E]):
         try:
             assert origen in self.adyacencias, f"El vértice de origen '{origen}' no está en el grafo."
             assert destino in self.adyacencias[origen], f"El vértice de destino '{destino}' no está conectado al vértice de origen '{origen}'."
-            return self.adyacencias[origen][destino]
+            return set(self.adyacencias[origen][destino])
         except AssertionError as e:
             print(f"Error: {e}")
             return None
@@ -107,7 +112,7 @@ class Grafo(Generic[V, E]):
         
         :return: Conjunto de vértices.
         """
-        return self.adyacencias.keys()
+        return set(self.adyacencias.keys())
         pass
     
     def edge_exists(self, origen: V, destino: V) -> bool:
@@ -119,8 +124,7 @@ class Grafo(Generic[V, E]):
         :return: True si existe la arista, False en caso contrario.
         """
         if origen in self.adyacencias:
-            return self.adyacencias[origen][destino]
-    
+            return destino in self.adyacencias[origen]
     
         return False
         
@@ -141,7 +145,23 @@ class Grafo(Generic[V, E]):
         :return: Grafo inverso.
         :raise ValueError: Si el grafo no es dirigido.
         """
-        pass
+            
+        if not self.es_dirigido:
+            raise ValueError("El grafo no es dirigido, no se puede invertir.")
+
+        # Crear una nueva estructura de adyacencias para el grafo inverso
+        grafo_inverso_adyacencias = {v: {} for v in self.adyacencias.keys()}
+    
+        # Recorrer todas las aristas del grafo original
+        for origen, destinos in self.adyacencias.items():
+            for destino, peso in destinos.items():
+                # Invertir la dirección de la arista
+                grafo_inverso_adyacencias[destino][origen] = peso
+    
+        # Devolver un nuevo objeto Grafo con las adyacencias invertidas
+        return Grafo(adyacencias=grafo_inverso_adyacencias, es_dirigido=True)
+            
+        
 
     def draw(self, titulo: str = "Grafo", 
             lambda_vertice: Callable[[V], str] = str, 
