@@ -135,6 +135,7 @@ class Poblacion:
         return self._elementos.get(clave)
 
     def todos(self) -> List[Type]:
+        
         return [elemento for elementos in self._elementos.values() for elemento in elementos]
 
 # --------------------------
@@ -172,34 +173,48 @@ class Banco:
         self.prestamos = prestamos
 
     def prestamos_de_cliente(self, dni: str) -> List[Prestamo]:
-	'''
-	Devuelve una lista con todos los préstamos del cliente con el dni especificado
-	'''
-        pass
+        
+        '''
+        Devuelve el prestamo del cliente
+        
+        SINTAXIS BASICA COMPRESION:
+        [f(elemento)  | for elemento in iterable | if condicion ]
+        '''
+        
+        return [p for p in self.prestamos.todos() if p.dni_cliente == dni]
 
     def empleado_mas_longevo(self) -> Optional[Empleado]:
-	'''
-	Devuelve el empleado que lleva más meses contratado en el banco
-	'''
-        pass
-
+    	'''
+    	Devuelve el empleado que lleva más meses contratado en el banco
+    	
+    	SINTAXIS BASICA COMPRESION:
+    	[f(elemento)  | for elemento in iterable | if condicion ]
+    	'''
+        
+        empleados = [e for e in self.empleados.todos()]
+        min_e = min(empleados, key=lambda e:e.fecha_contrato,default= None)
+        return self.personas.obtener(min_e.dni)
+        
+        
+        
     def intereses_prestamos(self) -> Tuple[float, float, float]:
-	'''
-	Devuelve una tupla con el mínimo interés, el máximo interés y la media del interés de todos los préstamos
-	'''
+    	'''
+    	Devuelve una tupla con el mínimo interés, el máximo interés y la media del interés de todos los préstamos
+    	'''
+        
         pass
 
     def media_cantidad_prestamos_cliente(self, dni: str) -> float:
-	'''
-	Devuelve el importe medio prestado al cliente con el dni indicado. Si el cliente no tiene ningún préstamo
-	se devolverá 0	
-	'''
+    	'''
+    	Devuelve el importe medio prestado al cliente con el dni indicado. Si el cliente no tiene ningún préstamo
+    	se devolverá 0	
+    	'''
         pass
 
     def clientes_con_multiples_prestamos(self) -> List[Persona]:
-	'''
-	Devuelve una lista de objetos Persona con aquellos clientes que tienen varios préstamos concedidos
-	'''
+    	'''
+    	Devuelve una lista de objetos Persona con aquellos clientes que tienen varios préstamos concedidos
+    	'''
         pass
         
            
@@ -229,6 +244,8 @@ if __name__ == "__main__":
     for prestamo in banco.prestamos_de_cliente("92784222Z"):
         print(prestamo)
     print("\nEmpleado más longevo:", banco.empleado_mas_longevo())
+    print("\n persona más longevo:", banco.persona_mas_persona())
+    '''
     print("\nIntereses de préstamos:", banco.intereses_prestamos())
 
     f1 = datetime.strptime("2023-01-01", "%Y-%m-%d")
@@ -238,3 +255,4 @@ if __name__ == "__main__":
     print("\nClientes con múltiples préstamos:")
     for cliente in banco.clientes_con_multiples_prestamos():
         print(cliente)
+    '''

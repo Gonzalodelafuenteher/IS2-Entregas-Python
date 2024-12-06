@@ -65,7 +65,15 @@ class Grafo(Generic[V, E]):
         :param vertice: Vértice del que se buscan los sucesores.
         :return: Conjunto de sucesores.
         """
-        pass
+        try:
+            
+            assert vertice in self.adyacencias
+            return self.adyacencias[vertice]
+        
+        except AssertionError:
+            print(f"El vertice no esta en el grafo")
+        return None
+        
 
     def predecessors(self, vertice: V) -> Set[V]:
         """
@@ -84,7 +92,14 @@ class Grafo(Generic[V, E]):
         :param destino: Vértice de destino.
         :return: Peso de la arista, o None si no existe.
         """
-        pass
+        try:
+            assert origen in self.adyacencias, f"El vértice de origen '{origen}' no está en el grafo."
+            assert destino in self.adyacencias[origen], f"El vértice de destino '{destino}' no está conectado al vértice de origen '{origen}'."
+            return self.adyacencias[origen][destino]
+        except AssertionError as e:
+            print(f"Error: {e}")
+            return None
+        
 
     def vertices(self) -> Set[V]:
         """
@@ -92,6 +107,7 @@ class Grafo(Generic[V, E]):
         
         :return: Conjunto de vértices.
         """
+        return self.adyacencias.keys()
         pass
     
     def edge_exists(self, origen: V, destino: V) -> bool:
@@ -102,7 +118,12 @@ class Grafo(Generic[V, E]):
         :param destino: Vértice de destino.
         :return: True si existe la arista, False en caso contrario.
         """
-        pass
+        if origen in self.adyacencias:
+            return self.adyacencias[origen][destino]
+    
+    
+        return False
+        
 
     def subgraph(self, vertices: Set[V]) -> Grafo[V, E]:
         """
@@ -166,6 +187,13 @@ class Grafo(Generic[V, E]):
             vertice2 -> vertice1 (peso)
             ...
         """
+        resultado = []
+        for origen, destinos in self.adyacencias.items():
+            conexiones = []
+            for destino, peso in destinos.items():
+                conexiones.append(f"{destino} ({peso})")
+            resultado.append(f"{origen} -> " + ", ".join(conexiones))
+        return "\n".join(resultado)
         
 
 if __name__ == '__main__':
@@ -174,10 +202,19 @@ if __name__ == '__main__':
     grafo.add_vertex("A")
     grafo.add_vertex("B")
     grafo.add_vertex("C")
+    print(grafo) 
+    print("######################")
     grafo.add_edge("A", "B", 5)
     grafo.add_edge("B", "C", 3)
+    print(grafo)
+    print("######################")
+    print(grafo.successors("B"))
+    print("######################")
+    print(grafo.vertices())
+    
     
     # Dibujar el grafo
     #grafo.draw(titulo="Mi Grafo Dirigido")
     
-    grafo.inverse_graph().draw(titulo="Inverso del Grafo Dirigido")
+    #grafo.inverse_graph().draw(titulo="Inverso del Grafo Dirigido")
+    
