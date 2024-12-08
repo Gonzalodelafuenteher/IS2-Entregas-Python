@@ -64,7 +64,8 @@ función reconstruir_camino(predecesores, destino):
     devolver camino
 
 '''
-from typing import TypeVar, List, Set
+from typing import TypeVar, List
+from entrega3.grafo.grafon import Grafo
 
 #from grafos.grafo import Grafo --> Adáptalo a tu proyecto
 #from estructuras.Estructuras import Cola --> Adáptalo a tu proyecto

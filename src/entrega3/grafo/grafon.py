@@ -130,12 +130,20 @@ class Grafo(Generic[V, E]):
         
 
     def subgraph(self, vertices: Set[V]) -> Grafo[V, E]:
-        """
-        Crea un subgraph basado en un conjunto de vértices.
-        
-        :param vertices: Conjunto de vértices del subgraph.
-        :return: Nuevo grafo con los vértices y aristas correspondientes.
-        """
+        if not vertices.issubset(self.adyacencias.keys()):
+            raise ValueError("Algunos vértices no existen en el grafo original.")
+    
+        # Crear la estructura de adyacencias del subgrafo
+        subgrafo_adyacencias = {v: {} for v in vertices}
+    
+        # Copiar las aristas cuyos vértices de origen y destino están en el conjunto
+        for origen in vertices:
+            for destino, peso in self.adyacencias[origen].items():
+                if destino in vertices:  # Solo incluir si el destino también pertenece al conjunto
+                    subgrafo_adyacencias[origen][destino] = peso
+    
+        # Devolver un nuevo objeto Grafo con las adyacencias filtradas
+        return Grafo(adyacencias=subgrafo_adyacencias, es_dirigido=self.es_dirigido)
         pass
 
     def inverse_graph(self) -> Grafo[V, E]:
@@ -149,16 +157,16 @@ class Grafo(Generic[V, E]):
         if not self.es_dirigido:
             raise ValueError("El grafo no es dirigido, no se puede invertir.")
 
-        # Crear una nueva estructura de adyacencias para el grafo inverso
+        
         grafo_inverso_adyacencias = {v: {} for v in self.adyacencias.keys()}
     
-        # Recorrer todas las aristas del grafo original
+        
         for origen, destinos in self.adyacencias.items():
             for destino, peso in destinos.items():
-                # Invertir la dirección de la arista
+                
                 grafo_inverso_adyacencias[destino][origen] = peso
     
-        # Devolver un nuevo objeto Grafo con las adyacencias invertidas
+        #
         return Grafo(adyacencias=grafo_inverso_adyacencias, es_dirigido=True)
             
         
@@ -234,7 +242,7 @@ if __name__ == '__main__':
     
     
     # Dibujar el grafo
-    #grafo.draw(titulo="Mi Grafo Dirigido")
+    grafo.draw(titulo="Mi Grafo Dirigido")
     
-    #grafo.inverse_graph().draw(titulo="Inverso del Grafo Dirigido")
+    grafo.inverse_graph().draw(titulo="Inverso del Grafo Dirigido")
     
