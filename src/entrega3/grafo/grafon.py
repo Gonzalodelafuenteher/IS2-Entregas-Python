@@ -17,19 +17,19 @@ class Grafo(Generic[V, E]):
     """
     Representaciónde un grafo utilizando un diccionario de adyacencia.
     """
-    def __init__(self, es_dirigido: bool = True):
+    def __init__(self, es_dirigido: bool = True, adyacencias:Dict[V, Dict[V, E]] = {}):
         self.es_dirigido: bool = es_dirigido
-        self.adyacencias: Dict[V, Dict[V, E]] = {}  # Diccionario de adyacencia
+        self.adyacencias: Dict[V, Dict[V, E]] = adyacencias  # Diccionario de adyacencia
     
     @staticmethod
-    def of(es_dirigido: bool = True) -> Grafo[V, E]:
+    def of(es_dirigido: bool = True, adyacencias:Dict[V, Dict[V, E]] = {}) -> Grafo[V, E]:
         """
         Método de factoría para crear un nuevo grafo.
         
         :param es_dirigido: Indica si el grafo es dirigido (True) o no dirigido (False).
         :return: Nuevo grafo.
         """
-        return Grafo(es_dirigido)
+        return Grafo(es_dirigido,adyacencias)
     
     
     def add_vertex(self, vertice: V) -> None:
@@ -113,7 +113,7 @@ class Grafo(Generic[V, E]):
         :return: Conjunto de vértices.
         """
         return set(self.adyacencias.keys())
-        pass
+        
     
     def edge_exists(self, origen: V, destino: V) -> bool:
         """
@@ -130,22 +130,23 @@ class Grafo(Generic[V, E]):
         
 
     def subgraph(self, vertices: Set[V]) -> Grafo[V, E]:
-        if not vertices.issubset(self.adyacencias.keys()):
-            raise ValueError("Algunos vértices no existen en el grafo original.")
-    
+    # Verificar si todos los vértices están en el grafo original
+        for v in vertices:
+            if v not in self.adyacencias:
+                raise ValueError(f"El vértice {v} no existe en el grafo original.")
+        
         # Crear la estructura de adyacencias del subgrafo
         subgrafo_adyacencias = {v: {} for v in vertices}
-    
+        
         # Copiar las aristas cuyos vértices de origen y destino están en el conjunto
         for origen in vertices:
             for destino, peso in self.adyacencias[origen].items():
                 if destino in vertices:  # Solo incluir si el destino también pertenece al conjunto
                     subgrafo_adyacencias[origen][destino] = peso
-    
+        
         # Devolver un nuevo objeto Grafo con las adyacencias filtradas
         return Grafo(adyacencias=subgrafo_adyacencias, es_dirigido=self.es_dirigido)
-        pass
-
+        
     def inverse_graph(self) -> Grafo[V, E]:
         """
         Devuelve el grafo inverso (solo válido para grafos dirigidos).
@@ -239,6 +240,7 @@ if __name__ == '__main__':
     print(grafo.successors("B"))
     print("######################")
     print(grafo.vertices())
+    print(grafo.inverse_graph)
     
     
     # Dibujar el grafo

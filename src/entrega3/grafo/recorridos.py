@@ -66,15 +66,12 @@ función reconstruir_camino(predecesores, destino):
 '''
 from typing import TypeVar, List
 from entrega3.grafo.grafon import Grafo
+from entrega2.tipos.Cola import Cola
+from entrega2.tipos.Pila import Pila
 
-#from grafos.grafo import Grafo --> Adáptalo a tu proyecto
-#from estructuras.Estructuras import Cola --> Adáptalo a tu proyecto
-#from estructuras.Estructuras import Pila --> Adáptalo a tu proyecto
 
-# Importa la clase Grafo desde su módulo
-
-V = TypeVar('V')  # Tipo de los vértices
-E = TypeVar('E')  # Tipo de las aristas
+V = TypeVar('V')  
+E = TypeVar('E')
 
 def bfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
     """
@@ -85,7 +82,22 @@ def bfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
     :param destino: Vértice de destino.
     :return: Lista de vértices en el camino más corto desde inicio a destino, o [] si no hay camino.
     """
-    pass
+    Visitados = set()
+    cola:Cola = Cola() 
+    cola.add(inicio)
+    predecesores = {inicio:None}
+    while not cola.is_empty():
+        vertice = cola.remove()
+        if vertice == destino:
+            break
+        if not vertice in Visitados:
+            Visitados.add(vertice)
+            for vecino in grafo.inverse_graph(vertice):
+                if vecino not in Visitados:
+                    cola.add(vecino)
+                    predecesores[vecino] = vertice
+          
+    return reconstruir_camino(predecesores, destino)
 
 def dfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
     """
@@ -96,7 +108,23 @@ def dfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
     :param destino: Vértice de destino.
     :return: Lista de vértices en el camino más corto desde inicio a destino, o [] si no hay camino.
     """
-    pass
+    Visitados = set()
+    pila:Pila = Pila()
+    pila.add(inicio)
+    predecesores = {inicio:None}
+    while not pila.is_empty():
+        vertice = pila.pop()
+        if vertice == destino:
+            break
+        if not vertice in Visitados:
+            Visitados.add(vertice)
+            
+            for vecino in grafo.inverse_graph(vertice):
+                if vecino not in Visitados:
+                    pila.append(vecino)
+                    predecesores[vecino] = vertice
+    
+    return reconstruir_camino(predecesores, destino)
 
 def reconstruir_camino(predecesores: dict, destino: V) -> List[V]:
     """
@@ -106,4 +134,12 @@ def reconstruir_camino(predecesores: dict, destino: V) -> List[V]:
     :param destino: Vértice de destino.
     :return: Lista de vértices en el camino desde el origen hasta el destino.
     """
-    pass
+    camino:list = []
+    vertice_actual = destino
+    while vertice_actual is not None:
+        camino.append(vertice_actual)
+        vertice_actual = predecesores
+         
+    return camino
+
+

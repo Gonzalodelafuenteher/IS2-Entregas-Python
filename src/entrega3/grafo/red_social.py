@@ -3,8 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict
 from datetime import date, datetime
-#from grafos.recorridos import * --> Adáptalo a tu proyecto
-#from grafos.grafo import * --> Adáptalo a tu proyecto
+from entrega3.grafo.recorridos import *
+from entrega3.grafo.grafon import *
+
 
 @dataclass(frozen=True)
 class Usuario:
@@ -55,7 +56,7 @@ class Red_social(Grafo[Usuario, Relacion]):
         :param es_dirigido: Indica si la red social es dirigida (True) o no dirigida (False).
         :return: Nueva red social.
         """
-        pass
+        return Red_social(es_dirigido)
 
     @staticmethod
     def parse(f1: str, f2: str, es_dirigido: bool = False) -> Red_social:
@@ -67,10 +68,38 @@ class Red_social(Grafo[Usuario, Relacion]):
         :param es_dirigido: Indica si la red social es dirigida (True) o no dirigida (False).
         :return: Nueva red social.
         """
-        pass
+        red_social = Red_social.of(es_dirigido=es_dirigido)
+
+    # Procesar usuarios
+        with open(f1, 'r') as archivo_usuarios:
+            for linea in archivo_usuarios:
+                datos = linea.strip().split(',')
+                dni, nombre, apellido, fecha_str = datos
+                fecha = datetime.strptime(fecha_str, '%Y-%m-%d')
+    
+                # Crear usuario
+                usuario = Usuario.of(dni, nombre, apellido, fecha)
+    
+                # Agregar a la red social
+                red_social.usuarios_dni[dni] = usuario
+                red_social.add_vertex(usuario)
+
+    # Procesar relaciones
+        with open(f2, 'r') as archivo_relaciones:
+            for linea in archivo_relaciones:
+                datos = linea.strip().split(',')
+                dni1, dni2, tipo_relacion, fecha_relacion = datos
+    
+                # Crear relación
+                relacion = Relacion.of(tipo_relacion, fecha_relacion)
+    
+                # Agregar relación a la red social
+                red_social.add_edge(red_social.usuarios_dni[dni1],red_social.usuarios_dni[dni2],relacion)
+    
+        return red_social
     
 if __name__ == '__main__':
-    raiz = '../../' # Cambia esta variable si ejecutas este script desde otro directorio
+    raiz = '../../../'
     rrss = Red_social.parse(raiz+'resources/usuarios.txt', raiz+'resources/relaciones.txt', es_dirigido=False)
     
 
