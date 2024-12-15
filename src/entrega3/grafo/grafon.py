@@ -130,7 +130,10 @@ class Grafo(Generic[V, E]):
         
 
     def subgraph(self, vertices: Set[V]) -> Grafo[V, E]:
-    # Verificar si todos los vértices están en el grafo original
+        if vertices is None:
+            raise ValueError("El conjunto de vértices no puede ser None.")
+        
+        # Verificar si todos los vértices están en el grafo original
         for v in vertices:
             if v not in self.adyacencias:
                 raise ValueError(f"El vértice {v} no existe en el grafo original.")
@@ -146,30 +149,30 @@ class Grafo(Generic[V, E]):
         
         # Devolver un nuevo objeto Grafo con las adyacencias filtradas
         return Grafo(adyacencias=subgrafo_adyacencias, es_dirigido=self.es_dirigido)
-        
-    def inverse_graph(self) -> Grafo[V, E]:
-        """
-        Devuelve el grafo inverso (solo válido para grafos dirigidos).
-        
-        :return: Grafo inverso.
-        :raise ValueError: Si el grafo no es dirigido.
-        """
             
-        if not self.es_dirigido:
-            raise ValueError("El grafo no es dirigido, no se puede invertir.")
-
-        
-        grafo_inverso_adyacencias = {v: {} for v in self.adyacencias.keys()}
-    
-        
-        for origen, destinos in self.adyacencias.items():
-            for destino, peso in destinos.items():
+        def inverse_graph(self) -> Grafo[V, E]:
+            """
+            Devuelve el grafo inverso (solo válido para grafos dirigidos).
+            
+            :return: Grafo inverso.
+            :raise ValueError: Si el grafo no es dirigido.
+            """
                 
-                grafo_inverso_adyacencias[destino][origen] = peso
+            if not self.es_dirigido:
+                raise ValueError("El grafo no es dirigido, no se puede invertir.")
     
-        #
-        return Grafo(adyacencias=grafo_inverso_adyacencias, es_dirigido=True)
             
+            grafo_inverso_adyacencias = {v: {} for v in self.adyacencias.keys()}
+        
+            
+            for origen, destinos in self.adyacencias.items():
+                for destino, peso in destinos.items():
+                    
+                    grafo_inverso_adyacencias[destino][origen] = peso
+        
+            #
+            return Grafo(adyacencias=grafo_inverso_adyacencias, es_dirigido=True)
+                
         
 
     def draw(self, titulo: str = "Grafo", 

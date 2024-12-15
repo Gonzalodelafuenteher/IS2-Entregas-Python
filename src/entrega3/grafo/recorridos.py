@@ -141,12 +141,14 @@ def reconstruir_camino(predecesores: dict, destino: V) -> List[V]:
     :param destino: Vértice de destino.
     :return: Lista de vértices en el camino desde el origen hasta el destino.
     """
-    camino:list = []
-    vertice_actual = destino
-    while vertice_actual is not None:
-        camino.append(vertice_actual)
-        vertice_actual = predecesores
-         
-    return camino
-
-
+    def reconstruir_camino(predecesores: dict, destino: V) -> List[V]:
+        camino: list = []
+        vertice_actual = destino
+        while vertice_actual is not None:
+            camino.append(vertice_actual)
+            vertice_actual = predecesores[vertice_actual]  # Acceder correctamente al predecesor
+             
+        camino.reverse()  # Invertir el camino para que esté en el orden correcto
+        return camino
+    
+    
