@@ -96,11 +96,10 @@ class Red_social(Grafo[Usuario, Relacion]):
 if __name__ == '__main__':
     raiz = ''
     rrss = Red_social.parse(raiz+'usuarios.txt', raiz+'relaciones.txt', es_dirigido=False)
-    
-
-    print("El camino más corto desde 25143909I hasta 87345530M es:")
     camino = bfs(rrss, rrss.usuarios_dni['25143909I'], rrss.usuarios_dni['87345530M'])
     g_camino = rrss.subgraph(camino)
     
     g_camino.draw("caminos", lambda_vertice=lambda v: f"{v.dni}", lambda_arista=lambda e: e.id)
-        
+
+    print("El camino más corto desde 25143909I hasta 87345530M es:")
+    

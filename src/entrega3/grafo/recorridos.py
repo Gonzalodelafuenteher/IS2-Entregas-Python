@@ -90,13 +90,20 @@ def bfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
         vertice = cola.remove()
         if vertice == destino:
             break
-        if not vertice in Visitados:
+        if vertice not in Visitados:
             Visitados.add(vertice)
-            for vecino in grafo.inverse_graph(vertice):
-                if vecino not in Visitados:
-                    cola.add(vecino)
-                    predecesores[vecino] = vertice
-          
+            # Si el grafo es dirigido, usa inverse_graph
+            if grafo.es_dirigido:
+                for vecino in grafo.inverse_graph().get(vertice, []):  # Solo si es dirigido
+                    if vecino not in Visitados:
+                        cola.add(vecino)
+                        predecesores[vecino] = vertice
+            else:
+                for vecino in grafo.adyacencias.get(vertice, []):  # Si no es dirigido
+                    if vecino not in Visitados:
+                        cola.add(vecino)
+                        predecesores[vecino] = vertice
+
     return reconstruir_camino(predecesores, destino)
 
 def dfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
