@@ -51,10 +51,10 @@ class Grafo(Generic[V, E]):
         :param arista: Arista a añadir.
         """
         if self.es_dirigido == True:
-            self.adyacencias[origen] = {destino:arista}
+            self.adyacencias[origen] |= {destino:arista}
         else:
-            self.adyacencias[origen] = {destino:arista}
-            self.adyacencias[destino] = {destino:arista}
+            self.adyacencias[origen] |= {destino:arista}
+            self.adyacencias[destino] |= {origen:arista}
             
             
 
@@ -68,7 +68,7 @@ class Grafo(Generic[V, E]):
         try:
             
             assert vertice in self.adyacencias
-            return set(self.adyacencias[vertice])
+            return set(self.adyacencias[vertice].keys())
         
         except AssertionError:
             print(f"El vertice no esta en el grafo")
@@ -150,7 +150,7 @@ class Grafo(Generic[V, E]):
         # Devolver un nuevo objeto Grafo con las adyacencias filtradas
         return Grafo(adyacencias=subgrafo_adyacencias, es_dirigido=self.es_dirigido)
             
-        def inverse_graph(self) -> Grafo[V, E]:
+    def inverse_graph(self) -> Grafo[V, E]:
             """
             Devuelve el grafo inverso (solo válido para grafos dirigidos).
             

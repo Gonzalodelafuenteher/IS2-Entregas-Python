@@ -88,22 +88,17 @@ def bfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
     predecesores = {inicio:None}
     while not cola.is_empty():
         vertice = cola.remove()
+        
         if vertice == destino:
             break
         if vertice not in Visitados:
             Visitados.add(vertice)
             # Si el grafo es dirigido, usa inverse_graph
-            if grafo.es_dirigido:
-                for vecino in grafo.inverse_graph().get(vertice, []):  # Solo si es dirigido
-                    if vecino not in Visitados:
-                        cola.add(vecino)
-                        predecesores[vecino] = vertice
-            else:
-                for vecino in grafo.adyacencias.get(vertice, []):  # Si no es dirigido
-                    if vecino not in Visitados:
-                        cola.add(vecino)
-                        predecesores[vecino] = vertice
-
+            for vecino in grafo.successors(vertice):  # Solo si es dirigido
+                if vecino not in Visitados:
+                    cola.add(vecino)
+                    predecesores[vecino] = vertice
+    print(predecesores)
     return reconstruir_camino(predecesores, destino)
 
 def dfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
@@ -141,14 +136,13 @@ def reconstruir_camino(predecesores: dict, destino: V) -> List[V]:
     :param destino: Vértice de destino.
     :return: Lista de vértices en el camino desde el origen hasta el destino.
     """
-    def reconstruir_camino(predecesores: dict, destino: V) -> List[V]:
-        camino: list = []
-        vertice_actual = destino
-        while vertice_actual is not None:
-            camino.append(vertice_actual)
-            vertice_actual = predecesores[vertice_actual]  # Acceder correctamente al predecesor
-             
-        camino.reverse()  # Invertir el camino para que esté en el orden correcto
-        return camino
+    camino: list = []
+    vertice_actual = destino
+    while vertice_actual in predecesores:
+        camino.append(vertice_actual)
+        vertice_actual = predecesores[vertice_actual]  # Acceder correctamente al predecesor
+        camino.reverse()
+      # Invertir el camino para que esté en el orden correcto
+    return camino
     
     

@@ -16,11 +16,9 @@ class Usuario:
     
     @staticmethod
     def of(dni: str, nombre: str, apellidos: str, fecha_nacimiento: date) -> 'Usuario':
-        # Crear una nueva instancia de Usuario utilizando los parámetros proporcionados
         return Usuario(dni=dni, nombre=nombre, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento)
     
     def __str__(self) -> str:
-        # Devuelve una representación en formato de cadena del usuario
         return f"Usuario(dni={self.dni}, nombre={self.nombre}, apellidos={self.apellidos}, fecha_nacimiento={self.fecha_nacimiento})"
 
 @dataclass(frozen=True)
@@ -28,16 +26,16 @@ class Relacion:
     id: int
     interacciones: int
     dias_activa: int
-    __n: int = 0 # Contador de relaciones. Servirá para asignar identificadores únicos a las relaciones.
+    __n: int = 0
 
     @staticmethod
     def of(interacciones: int, dias_activa: int) -> 'Relacion':
-        # Incrementar el contador global y asignar un nuevo ID
+        
         Relacion.__n += 1
         return Relacion(Relacion.__n, interacciones, dias_activa)
 
     def __str__(self) -> str:
-        # Representación en formato de texto de una relación
+        
         return f"Relacion(id={self.id}, interacciones={self.interacciones}, dias_activa={self.dias_activa})"
         
 
@@ -82,22 +80,27 @@ class Red_social(Grafo[Usuario, Relacion]):
                 dni, nombre, apellido, fecha_str = datos
                 fecha = datetime.strptime(fecha_str, '%Y-%m-%d')
                 usuario = Usuario.of(dni, nombre, apellido, fecha)
-                red_social.usuarios_dni[dni] = usuario
+                red_social.usuarios_dni = red_social.usuarios_dni | {dni:usuario}
                 red_social.add_vertex(usuario)
+                
         with open(f2, 'r') as archivo_relaciones:
             for linea in archivo_relaciones:
                 datos = linea.strip().split(',')
                 dni1, dni2, tipo_relacion, fecha_relacion = datos
                 relacion = Relacion.of(tipo_relacion, fecha_relacion)
-                red_social.add_edge(red_social.usuarios_dni[dni1],red_social.usuarios_dni[dni2],relacion)
+                red_social.add_edge(red_social.usuarios_dni[dni1],red_social.usuarios_dni[dni2],Relacion.of(tipo_relacion,fecha_relacion))
     
         return red_social
     
 if __name__ == '__main__':
+    
     raiz = ''
     rrss = Red_social.parse(raiz+'usuarios.txt', raiz+'relaciones.txt', es_dirigido=False)
     camino = bfs(rrss, rrss.usuarios_dni['25143909I'], rrss.usuarios_dni['87345530M'])
+    
+    
     g_camino = rrss.subgraph(camino)
+    
     
     g_camino.draw("caminos", lambda_vertice=lambda v: f"{v.dni}", lambda_arista=lambda e: e.id)
 
