@@ -142,7 +142,7 @@ def reconstruir_camino(predecesores: dict, destino: V) -> List[V]:
         camino.append(vertice_actual)
         vertice_actual = predecesores[vertice_actual]  # Acceder correctamente al predecesor
         camino.reverse()
-      # Invertir el camino para que esté en el orden correcto
+    # Invertir el camino para que esté en el orden correcto
     return camino
     
     

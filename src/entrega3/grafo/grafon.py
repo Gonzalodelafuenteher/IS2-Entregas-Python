@@ -100,7 +100,7 @@ class Grafo(Generic[V, E]):
         try:
             assert origen in self.adyacencias, f"El vértice de origen '{origen}' no está en el grafo."
             assert destino in self.adyacencias[origen], f"El vértice de destino '{destino}' no está conectado al vértice de origen '{origen}'."
-            return set(self.adyacencias[origen][destino])
+            return self.adyacencias[origen][destino] 
         except AssertionError as e:
             print(f"Error: {e}")
             return None
@@ -133,21 +133,21 @@ class Grafo(Generic[V, E]):
         if vertices is None:
             raise ValueError("El conjunto de vértices no puede ser None.")
         
-        # Verificar si todos los vértices están en el grafo original
+        
         for v in vertices:
             if v not in self.adyacencias:
                 raise ValueError(f"El vértice {v} no existe en el grafo original.")
         
-        # Crear la estructura de adyacencias del subgrafo
+        
         subgrafo_adyacencias = {v: {} for v in vertices}
         
-        # Copiar las aristas cuyos vértices de origen y destino están en el conjunto
+        
         for origen in vertices:
             for destino, peso in self.adyacencias[origen].items():
-                if destino in vertices:  # Solo incluir si el destino también pertenece al conjunto
+                if destino in vertices:  #
                     subgrafo_adyacencias[origen][destino] = peso
         
-        # Devolver un nuevo objeto Grafo con las adyacencias filtradas
+        
         return Grafo(adyacencias=subgrafo_adyacencias, es_dirigido=self.es_dirigido)
             
     def inverse_graph(self) -> Grafo[V, E]:
@@ -244,7 +244,10 @@ if __name__ == '__main__':
     print("######################")
     print(grafo.vertices())
     print(grafo.inverse_graph)
-    
+    print("######################")
+    a = "A"
+    b = "B"
+    print(grafo.edge_weight(a, b))
     
     # Dibujar el grafo
     grafo.draw(titulo="Mi Grafo Dirigido")
