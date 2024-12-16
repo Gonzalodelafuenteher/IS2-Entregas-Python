@@ -88,7 +88,7 @@ class Red_social(Grafo[Usuario, Relacion]):
                 datos = linea.strip().split(',')
                 dni1, dni2, tipo_relacion, fecha_relacion = datos
                 relacion = Relacion.of(tipo_relacion, fecha_relacion)
-                red_social.add_edge(red_social.usuarios_dni[dni1],red_social.usuarios_dni[dni2],Relacion.of(tipo_relacion,fecha_relacion))
+                red_social.add_edge(red_social.usuarios_dni[dni1],red_social.usuarios_dni[dni2],relacion)
     
         return red_social
     
