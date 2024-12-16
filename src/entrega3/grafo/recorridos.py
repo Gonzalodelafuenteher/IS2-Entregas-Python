@@ -111,19 +111,22 @@ def dfs(grafo: Grafo[V, E], inicio: V, destino: V) -> List[V]:
     :return: Lista de vértices en el camino más corto desde inicio a destino, o [] si no hay camino.
     """
     Visitados = set()
-    pila:Pila = Pila()
+    pila: Pila = Pila()  # Pila para DFS
     pila.add(inicio)
-    predecesores = {inicio:None}
+    predecesores = {inicio: None}
+    
     while not pila.is_empty():
         vertice = pila.pop()
+        
         if vertice == destino:
             break
-        if not vertice in Visitados:
+        
+        if vertice not in Visitados:
             Visitados.add(vertice)
             
-            for vecino in grafo.inverse_graph(vertice):
+            for vecino in grafo.successors(vertice):
                 if vecino not in Visitados:
-                    pila.append(vecino)
+                    pila.add(vecino)  # Usamos add() si es pila
                     predecesores[vecino] = vertice
     
     return reconstruir_camino(predecesores, destino)
@@ -136,13 +139,28 @@ def reconstruir_camino(predecesores: dict, destino: V) -> List[V]:
     :param destino: Vértice de destino.
     :return: Lista de vértices en el camino desde el origen hasta el destino.
     """
-    camino: list = []
+    camino = []
     vertice_actual = destino
-    while vertice_actual in predecesores:
+    while vertice_actual is not None:
         camino.append(vertice_actual)
-        vertice_actual = predecesores[vertice_actual]  # Acceder correctamente al predecesor
-        camino.reverse()
-    # Invertir el camino para que esté en el orden correcto
-    return camino
+        vertice_actual = predecesores.get(vertice_actual)
     
+    return camino[::-1] 
     
+
+if __name__ == "__main__":
+    # Crear un grafo de prueba
+    grafo = Grafo()
+    grafo.add_edge('A', 'B', 5)
+    grafo.add_edge('A', 'C', 3)
+    grafo.add_edge('B', 'D', 4)
+    grafo.add_edge('C', 'D', 2)
+    grafo.add_edge('D', 'E', 7)
+
+    # Pruebas BFS
+    print("Prueba BFS:")
+    print(bfs(grafo, 'A', 'E'))  # Camino esperado: ['A', 'B', 'D', 'E']
+
+    # Pruebas DFS
+    print("Prueba DFS:")
+    print(dfs(grafo, 'A', 'E'))

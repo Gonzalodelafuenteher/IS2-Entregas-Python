@@ -27,6 +27,7 @@ class Pila(Agregado_lineal[E]):
     def add(self, element: E) -> None:
         """Añade un nuevo elemento a la parte superior de la pila (al principio)."""
         self._elements.insert(0, element)  # Inserta el elemento al principio de la lista
+    
 
 
     @classmethod

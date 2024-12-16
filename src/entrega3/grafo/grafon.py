@@ -50,11 +50,14 @@ class Grafo(Generic[V, E]):
         :param destino: Vértice de destino.
         :param arista: Arista a añadir.
         """
-        if self.es_dirigido == True:
-            self.adyacencias[origen] |= {destino:arista}
-        else:
-            self.adyacencias[origen] |= {destino:arista}
-            self.adyacencias[destino] |= {origen:arista}
+         
+        if origen not in self.adyacencias:
+            self.adyacencias[origen] = {}
+        if destino not in self.adyacencias:
+            self.adyacencias[destino] = {}
+        self.adyacencias[origen][destino] = arista
+        if not self.es_dirigido:
+            self.adyacencias[destino][origen] = arista
             
             
 
