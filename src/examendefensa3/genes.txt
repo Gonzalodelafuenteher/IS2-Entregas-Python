@@ -1,0 +1,28 @@
+TP53,supresor tumoral,256,17p13.1
+EGFR,oncogen,187,7p12
+KRAS,oncogen,92,12p12.1
+BRAF,oncogen,75,7q34
+PIK3CA,oncogen,112,3q26
+CDKN2A,supresor tumoral,145,9p21.3
+SMAD4,supresor tumoral,89,18q21.1
+PTEN,supresor tumoral,102,10q23.31
+BCL2,oncogen,67,18q21.32
+MYC,oncogen,134,8q24.21
+CCND1,oncogen,95,11q13
+ATM,supresor tumoral,121,11q22.3
+RB1,supresor tumoral,158,13q14.2
+APC,supresor tumoral,119,5q22.2
+NF1,supresor tumoral,83,17q11.2
+MET,oncogen,78,7q31.2
+ALK,oncogen,62,2p25.1
+ROS1,oncogen,55,6q22.33
+RET,oncogen,49,10q11.21
+ERBB2,oncogen,108,17q12
+VHL,supresor tumoral,91,3p25.3
+MLH1,supresor tumoral,76,3p21.32
+MSH2,supresor tumoral,69,2p22
+PMS2,supresor tumoral,52,7p22
+MLH3,supresor tumoral,47,22q13.31
+MSH6,supresor tumoral,39,2p16
+EPCAM,supresor tumoral,42,20p13
+CTNNB1,oncogen,38,3p21.1
