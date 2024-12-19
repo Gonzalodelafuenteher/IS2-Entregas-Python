@@ -23,7 +23,7 @@ class Gen:
     @staticmethod
     def parse(linea: str) -> "Gen":
         
-        partes = linea.strip().split(",")  # Dividir la línea por comas
+        partes = linea.strip().split(",")  
         if len(partes) != 4:
             raise ValueError(f"La línea no tiene el formato esperado: {linea}")
         
@@ -106,14 +106,14 @@ class RedGenica(Grafo[str, float]):
         
         red_genica = RedGenica.of(es_dirigido)
 
-        # Leer y agregar genes desde el archivo f1
+        
         with open(f1, 'r') as archivo_genes:
             for linea in archivo_genes:
                 gen = Gen.parse(linea.strip())
                 red_genica.add_vertex(gen.nombre)
                 red_genica.genes_por_nombre[gen.nombre] = gen
 
-        # Leer y agregar relaciones desde el archivo f2
+        
         with open(f2, 'r') as archivo_relaciones:
             for linea in archivo_relaciones:
                 relacion = RelacionGenAGen.parse(linea.strip())
@@ -147,7 +147,7 @@ class RedGenica(Grafo[str, float]):
 
 
 if __name__ == "__main__":
-    # Paso 1: Cargar la red génica desde los ficheros
+
     genes_file = "genes.txt"
     red_genes_file = "red_genes.txt"
     red_genica = RedGenica.parse(genes_file, red_genes_file, es_dirigido=False)
